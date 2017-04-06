@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170406080405) do
+ActiveRecord::Schema.define(version: 20170406181830) do
+
+  create_table "notebooks", force: :cascade do |t|
+    t.string   "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "notebooks", ["user_id"], name: "index_notebooks_on_user_id"
+
+  create_table "notes", force: :cascade do |t|
+    t.string   "title"
+    t.integer  "notebook_id"
+    t.text     "content"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "notes", ["notebook_id"], name: "index_notes_on_notebook_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
